@@ -33,24 +33,6 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "2611cb81-7f0f-4df6-a0f6-d91de5e54436",
-      "data": {
-        "name": "CISCO_ACTION",
-        "pattern": "Built|Teardown|Deny|Denied|denied|requested|permitted|denied by ACL|discarded|est-allowed|Dropping|created|deleted"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
       "id": "839fce5d-6a1f-40f9-82af-04c880f5706d",
       "data": {
         "name": "CISCOFW713172",
