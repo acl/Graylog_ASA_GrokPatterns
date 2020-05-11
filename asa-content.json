@@ -1,7 +1,7 @@
 {
   "v": "1",
   "id": "324c879c-c1bf-4326-ac52-c5ff66caef5b",
-  "rev": 1,
+  "rev": 2,
   "name": "Cisco ASA Content Pack",
   "summary": "Groks for Cisco ASA FW logs",
   "description": "Yet another Cisco ASA content pack",
@@ -15,7 +15,25 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "be07d76c-ebb2-4eac-bcc7-7490d9396f20",
+      "id": "26e04a5c-4eb1-45d5-8b18-6676ce4cd1d0",
+      "data": {
+        "name": "CISCOFW113022_3",
+        "pattern": "AAA Marking RADIUS server %{IP:server} in aaa-server group %{NOTSPACE:server_group} as %{CISCO_AAASTATUS:server_group_status}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "ae9fe0ad-e266-4359-a74b-2bec3606a89d",
       "data": {
         "name": "CISCOMAC",
         "pattern": "(?:(?:[A-Fa-f0-9]{4}\\.){2}[A-Fa-f0-9]{4})"
@@ -23,7 +41,7 @@
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=3.1.3+cda805f"
+          "version": ">=3.2.4+a407287"
         }
       ]
     },
@@ -33,943 +51,7 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "839fce5d-6a1f-40f9-82af-04c880f5706d",
-      "data": {
-        "name": "CISCOFW713172",
-        "pattern": "Group = %{GREEDYDATA:group}, IP = %{IP:src_ip}, Automatic NAT Detection Status:\\s+Remote end\\s*%{DATA:is_remote_natted}\\s*behind a NAT device\\s+This\\s+end\\s*%{DATA:is_local_natted}\\s*behind a NAT device"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "4e8c0065-00ab-4b3b-bc35-7cb8212ca7da",
-      "data": {
-        "name": "CISCO_XLATE_TYPE",
-        "pattern": "static|dynamic"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "ef863bdd-adaa-452f-8919-8184b2afb2eb",
-      "data": {
-        "name": "CISCOFW733103",
-        "pattern": "Threat-detection removes host %{IP:src_ip} from shun list"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "95e1ed07-0c05-46e4-8ee9-22520369ebcf",
-      "data": {
-        "name": "CISCOFW419001",
-        "pattern": "%{CISCO_ACTION:action} %{WORD:protocol} packet from %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}, reason: %{GREEDYDATA:reason}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "403eb9d9-7f77-4b14-9d43-047944022732",
-      "data": {
-        "name": "CISCOFW302010",
-        "pattern": "%{INT:connection_count} in use, %{INT:connection_count_max} most used"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "d585346a-bf06-4c57-84ce-1aa76f0bc348",
-      "data": {
-        "name": "CISCOFW402117",
-        "pattern": "%{WORD:protocol}: Received a non-IPSec packet \\(protocol= %{WORD:orig_protocol}\\) from %{IP:src_ip} to %{IP:dst_ip}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "163736d3-bf5e-4a49-bd30-ec8221f955c8",
-      "data": {
-        "name": "CISCOFW105004",
-        "pattern": "\\((?:Primary|Secondary)\\) Monitoring on [Ii]nterface %{GREEDYDATA:interface_name} normal"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "3f708fd5-ad12-4889-bdcf-bf59f350a177",
-      "data": {
-        "name": "CISCOFW106021",
-        "pattern": "%{CISCO_ACTION:action} %{WORD:protocol} reverse path check from %{IP:src_ip} to %{IP:dst_ip} on interface %{GREEDYDATA:interface}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "35bc9414-0fd6-4a19-9a24-42d70cdf60d7",
-      "data": {
-        "name": "CISCOTIMESTAMP",
-        "pattern": "%{MONTH} +%{MONTHDAY}(?: %{YEAR})? %{TIME}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "8bf43b1d-60d7-460c-b6c3-943a14edae90",
-      "data": {
-        "name": "CISCOFW106100",
-        "pattern": "access-list %{NOTSPACE:policy_id} %{CISCO_ACTION:action} %{WORD:protocol} %{DATA:src_interface}/%{IP:src_ip}\\(%{INT:src_port}\\)(\\(%{DATA:src_fwuser}\\))? -> %{DATA:dst_interface}/%{IP:dst_ip}\\(%{INT:dst_port}\\)(\\(%{DATA:src_fwuser}\\))? hit-cnt %{INT:hit_count} %{CISCO_INTERVAL:interval} \\[%{DATA:hashcode1}, %{DATA:hashcode2}\\]"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "9c191170-26a2-4b1d-811e-97f02da8f853",
-      "data": {
-        "name": "CISCOFW104002",
-        "pattern": "\\((?:Primary|Secondary)\\) Switching to STANDBY - %{GREEDYDATA:switch_reason}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "941ff286-f3b9-447d-8466-b4af009546cb",
-      "data": {
-        "name": "CISCOFW401004",
-        "pattern": "%{CISCO_REASON:reason}: %{IP:src_ip} ==> %{IP:dst_ip} on interface %{GREEDYDATA:interface}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "8be1fe50-e502-437d-a68a-a4a034796f9a",
-      "data": {
-        "name": "CISCOFW500004",
-        "pattern": "%{CISCO_REASON:reason} for protocol=%{WORD:protocol}, from %{IP:src_ip}/%{INT:src_port} to %{IP:dst_ip}/%{INT:dst_port}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "f273d535-575f-4f05-acfd-735928ed0c07",
-      "data": {
-        "name": "CISCOFW113008",
-        "pattern": "AAA transaction status ACCEPT : user = %{NOTSPACE:user}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "8937cae5-a4b1-467b-b04a-ea97ee2b5b13",
-      "data": {
-        "name": "CISCOFW305011",
-        "pattern": "%{CISCO_ACTION:action} %{CISCO_XLATE_TYPE:xlate_type} %{WORD:protocol} translation from %{DATA:src_interface}:%{IP:src_ip}(/%{INT:src_port})?(\\(%{DATA:src_fwuser}\\))? to %{DATA:src_xlated_interface}:%{IP:src_xlated_ip}/%{DATA:src_xlated_port}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "efee4355-c5a8-4deb-a632-f9a27aa52016",
-      "data": {
-        "name": "CISCO_REASON",
-        "pattern": "AAA failure|Duplicate TCP SYN|TCP Reset\\-O|Failed to locate egress interface|Invalid transport field|No matching connection|DNS Response|DNS Query|(?:%{WORD}\\s*)*"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "31222950-ed57-4b47-8c06-4fb4a165fe09",
-      "data": {
-        "name": "CISCOFW106023",
-        "pattern": "%{CISCO_ACTION:action}( protocol)? %{WORD:protocol} src %{DATA:src_interface}:%{DATA:src_ip}(/%{INT:src_port})?(\\(%{DATA:src_fwuser}\\))? dst %{DATA:dst_interface}:%{DATA:dst_ip}(/%{INT:dst_port})?(\\(%{DATA:dst_fwuser}\\))?( \\(type %{INT:icmp_type}, code %{INT:icmp_code}\\))? by access-group \"?%{DATA:policy_id}\"? \\[%{DATA:hashcode1}, %{DATA:hashcode2}\\]"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "13313276-364f-4df0-929d-f23d5cae7647",
-      "data": {
-        "name": "CISCOFW434002",
-        "pattern": "%{CISCO_REASON:reason} %{WORD:protocol} packet from %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}\n"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "c95fd645-b855-47f2-92ff-881a295ba6e9",
-      "data": {
-        "name": "CISCOFW105003",
-        "pattern": "\\((?:Primary|Secondary)\\) Monitoring on [Ii]nterface %{GREEDYDATA:interface_name} waiting"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "b0959c14-586c-4713-967e-ab485422061d",
-      "data": {
-        "name": "CISCOFW106014",
-        "pattern": "%{CISCO_ACTION:action} %{CISCO_DIRECTION:direction} %{WORD:protocol} src %{DATA:src_interface}:%{IP:src_ip}(\\(%{DATA:src_fwuser}\\))? dst %{DATA:dst_interface}:%{IP:dst_ip}(\\(%{DATA:dst_fwuser}\\))? \\(type %{INT:icmp_type}, code %{INT:icmp_code}\\)"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "f325e364-0fc1-4c17-9ce9-8a809bb44a92",
-      "data": {
-        "name": "CISCOFW105008",
-        "pattern": "\\((?:Primary|Secondary)\\) Testing [Ii]nterface %{GREEDYDATA:interface_name}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "62031d21-4fac-48ac-83f2-15b4cab4ba09",
-      "data": {
-        "name": "CISCOFW402119",
-        "pattern": "%{WORD:protocol}: Received an %{WORD:orig_protocol} packet \\(SPI= %{DATA:spi}, sequence number= %{DATA:seq_num}\\) from %{IP:src_ip} \\(user= %{DATA:user}\\) to %{IP:dst_ip} that failed anti-replay checking"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "4abd42b3-93a2-44ee-b9b0-139381e5af05",
-      "data": {
-        "name": "CISCOTAG",
-        "pattern": "[A-Z0-9]+-%{INT}-(?:[A-Z0-9_]+)"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "f4553347-dcc7-440d-8519-8be28a4e0589",
-      "data": {
-        "name": "CISCOFW733100",
-        "pattern": "\\[\\s*%{DATA:drop_type}\\s*\\] drop %{DATA:drop_rate_id} exceeded. Current burst rate is %{INT:drop_rate_current_burst} per second, max configured rate is %{INT:drop_rate_max_burst}; Current average rate is %{INT:drop_rate_current_avg} per second, max configured rate is %{INT:drop_rate_max_avg}; Cumulative total count is %{INT:drop_total_count}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "a490301e-0b2c-4c6d-a54c-58ab5ce4ea27",
-      "data": {
-        "name": "CISCOFW113039",
-        "pattern": "Group <%{WORD:groupname}> User <%{NOTSPACE:user}> IP <%{IP:src_ip}> AnyConnect parent session started."
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "ea90835e-3d01-4e32-ae25-f54478b0f9ff",
-      "data": {
-        "name": "CISCOFW105009",
-        "pattern": "\\((?:Primary|Secondary)\\) Testing on [Ii]nterface %{GREEDYDATA:interface_name} (?:Passed|Failed)"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "f569fd97-7654-431c-90f1-818c4e8cc853",
-      "data": {
-        "name": "CISCOFW106015",
-        "pattern": "%{CISCO_ACTION:action} %{WORD:protocol} \\(%{DATA:policy_id}\\) from %{IP:src_ip}/%{INT:src_port} to %{IP:dst_ip}/%{INT:dst_port} flags %{DATA:tcp_flags} on interface %{GREEDYDATA:interface}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "b0939a6a-8290-4a5e-87b3-68add539ffd2",
-      "data": {
-        "name": "CISCOFW113005",
-        "pattern": "AAA user authentication %{CISCO_ACTION:action} : reason = %{CISCO_REASON} : server = %{IP:server} : user = %{DATA:user} : user IP = %{IP:src_ip}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "5e7bc498-a3cf-4806-aa39-be42501681f2",
-      "data": {
-        "name": "CISCOFW304001",
-        "pattern": "%{IP:src_ip}(\\(%{DATA:src_fwuser}\\))? Accessed URL %{IP:dst_ip}:%{GREEDYDATA:dst_url}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "f367b65e-b767-4635-b95c-a16398454c9e",
-      "data": {
-        "name": "CISCOFW302013_302014_302015_302016",
-        "pattern": "%{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection %{INT:connection_id} for %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port}( \\(%{IP:src_mapped_ip}/%{INT:src_mapped_port}\\))?(\\(%{DATA:src_fwuser}\\))? to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}( \\(%{IP:dst_mapped_ip}/%{INT:dst_mapped_port}\\))?(\\(%{DATA:dst_fwuser}\\))?( duration %{TIME:duration} bytes %{INT:bytes})?(?: %{CISCO_REASON:reason})?( \\(%{DATA:user}\\))?"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "445d6bcc-545d-40aa-95c2-23c01f36370d",
-      "data": {
-        "name": "CISCO_TAGGED_SYSLOG",
-        "pattern": "^<%{POSINT:syslog_pri}>%{CISCOTIMESTAMP:timestamp}( %{SYSLOGHOST:sysloghost})? ?: %%{CISCOTAG:ciscotag}:"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "acfbd9ae-8ee8-4bc2-b0dd-edd814b8659e",
-      "data": {
-        "name": "CISCOFW313001_313004_313008",
-        "pattern": "%{CISCO_ACTION:action} %{WORD:protocol} type=%{INT:icmp_type}, code=%{INT:icmp_code} from %{IP:src_ip} on interface %{DATA:interface}( to %{IP:dst_ip})?"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "e6a723c9-6c97-4e11-a568-c079928d36cd",
-      "data": {
-        "name": "CISCOFW710001_710002_710003_710005_710006",
-        "pattern": "%{WORD:protocol} (?:request|access) %{CISCO_ACTION:action} from %{IP:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "97aaa587-efe0-44d3-8eae-24721273280e",
-      "data": {
-        "name": "CISCOFW105005",
-        "pattern": "\\((?:Primary|Secondary)\\) Lost Failover communications with mate on [Ii]nterface %{GREEDYDATA:interface_name}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "9a3aa38f-4dc0-4dec-a4a9-2d673492ec10",
-      "data": {
-        "name": "CISCO_INTERVAL",
-        "pattern": "first hit|%{INT}-second interval"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "f9230153-9596-42e8-839e-2d0a40f78c5b",
-      "data": {
-        "name": "CISCOFW419002",
-        "pattern": "%{CISCO_REASON:reason} from %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port} with different initial sequence number"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "f180d312-6d8b-4e92-b845-7566d3dacd09",
-      "data": {
-        "name": "CISCOFW106100_2_3",
-        "pattern": "access-list %{NOTSPACE:policy_id} %{CISCO_ACTION:action} %{WORD:protocol} for user '%{DATA:src_fwuser}' %{DATA:src_interface}/%{IP:src_ip}\\(%{INT:src_port}\\) -> %{DATA:dst_interface}/%{IP:dst_ip}\\(%{INT:dst_port}\\) hit-cnt %{INT:hit_count} %{CISCO_INTERVAL:interval} \\[%{DATA:hashcode1}, %{DATA:hashcode2}\\]"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "b694e3d1-05be-40a7-adde-43da640bcb83",
-      "data": {
-        "name": "CISCOFW106006_106007_106010",
-        "pattern": "%{CISCO_ACTION:action} %{CISCO_DIRECTION:direction} %{WORD:protocol} (?:from|src) %{IP:src_ip}/%{INT:src_port}(\\(%{DATA:src_fwuser}\\))? (?:to|dst) %{IP:dst_ip}/%{INT:dst_port}(\\(%{DATA:dst_fwuser}\\))? (?:on interface %{DATA:interface}|due to %{CISCO_REASON:reason})"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "a6bf3943-4c6a-4ef3-a643-34cea6b2641c",
-      "data": {
-        "name": "CISCOFW321001",
-        "pattern": "Resource '%{WORD:resource_name}' limit of %{POSINT:resource_limit} reached for system"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "64f031da-308a-4ea4-95bc-b31ac4c13598",
-      "data": {
-        "name": "CISCOFW733102",
-        "pattern": "Threat-detection adds host %{IP:src_ip} to shun list"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "cd8ef828-e6e3-4918-9133-ee43cd4dd6f4",
-      "data": {
-        "name": "CISCOFW104003",
-        "pattern": "\\((?:Primary|Secondary)\\) Switching to FAILED\\."
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "0ac4e4d7-bdd9-4dbd-9c8e-cd4708458e94",
-      "data": {
-        "name": "CISCOFW106001",
-        "pattern": "%{CISCO_DIRECTION:direction} %{WORD:protocol} connection %{CISCO_ACTION:action} from %{IP:src_ip}/%{INT:src_port} to %{IP:dst_ip}/%{INT:dst_port} flags %{GREEDYDATA:tcp_flags} on interface %{GREEDYDATA:interface}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "6ff22089-b44c-4992-9f52-56bb3736b418",
-      "data": {
-        "name": "CISCOFW113004",
-        "pattern": "AAA user authentication Successful : server = \\s*%{IP:server} : user = %{NOTSPACE:user}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "09191eb3-88d6-4ece-a033-f0ecc0fbf825",
-      "data": {
-        "name": "CISCOFW602303_602304",
-        "pattern": "%{WORD:protocol}: An %{CISCO_DIRECTION:direction} %{GREEDYDATA:tunnel_type} SA \\(SPI= %{DATA:spi}\\) between %{IP:src_ip} and %{IP:dst_ip} \\(user= %{DATA:user}\\) has been %{CISCO_ACTION:action}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "2a735fe4-f843-40e8-afa8-f6a2e20e53f8",
-      "data": {
-        "name": "CISCOFW110002",
-        "pattern": "%{CISCO_REASON:reason} for %{WORD:protocol} from %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port} to %{IP:dst_ip}/%{INT:dst_port}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "1264246c-9ee6-4f50-8c89-e62992b8e914",
-      "data": {
-        "name": "CISCO_DIRECTION",
-        "pattern": "Inbound|inbound|Outbound|outbound"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "626fe84e-6d3a-4885-858d-a54f3345e719",
-      "data": {
-        "name": "CISCOFW302020_302021",
-        "pattern": "%{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection for faddr %{IP:dst_ip}/%{INT:icmp_seq_num}(?:\\(%{DATA:fwuser}\\))? gaddr %{IP:src_xlated_ip}/%{INT:icmp_code_xlated} laddr %{IP:src_ip}/%{INT:icmp_code}( \\(%{DATA:user}\\))?"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "c54d13ba-396e-4132-96e6-fcd48464ab5d",
-      "data": {
-        "name": "CISCOFW104004",
-        "pattern": "\\((?:Primary|Secondary)\\) Switching to OK\\."
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "d8763237-6743-411b-b674-527af5aafdf4",
-      "data": {
-        "name": "CISCOFW313005",
-        "pattern": "%{CISCO_REASON:reason} for %{WORD:protocol} error message: %{WORD:err_protocol} src %{DATA:err_src_interface}:%{IP:err_src_ip}(\\(%{DATA:err_src_fwuser}\\))? dst %{DATA:err_dst_interface}:%{IP:err_dst_ip}(\\(%{DATA:err_dst_fwuser}\\))? \\(type %{INT:err_icmp_type}, code %{INT:err_icmp_code}\\) on %{DATA:interface} interface\\.  Original IP payload: %{WORD:protocol} src %{IP:orig_src_ip}/%{INT:orig_src_port}(\\(%{DATA:orig_src_fwuser}\\))? dst %{IP:orig_dst_ip}/%{INT:orig_dst_port}(\\(%{DATA:orig_dst_fwuser}\\))?"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "bb5b777d-4d63-437f-bd3a-1f1f57521395",
-      "data": {
-        "name": "CISCOFW104001",
-        "pattern": "\\((?:Primary|Secondary)\\) Switching to ACTIVE - %{GREEDYDATA:switch_reason}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "05e26498-fae9-431f-913a-9a1ed9059ef0",
-      "data": {
-        "name": "CISCOFW507003",
-        "pattern": "%{WORD:protocol} flow from %{DATA:src_interface}:%{IPORHOST:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IPORHOST:dst_ip}/%{INT:dst_port} %{CISCO_ACTION:action} by inspection engine, reason - %{DATA:reason}?\\."
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "8eb522d1-c75b-43db-bd94-9aeb6b94eb8b",
-      "data": {
-        "name": "CISCOFW722037",
-        "pattern": "Group <%{WORD:groupname}> User <%{NOTSPACE:user}> IP <%{IP:src_ip}> SVC closing connection: Transport closing."
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.1.3+cda805f"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "b3b0c6f0-1714-471a-907a-66be6d2a73a8",
+      "id": "ef00efa9-3c22-4951-9f98-d25d6ba66bf4",
       "data": {
         "name": "CISCO_ACTION",
         "pattern": "Built|Teardown|Deny|Denied|denied|requested|permitted|received|denied by ACL|discarded|est-allowed|Dropping|dropping|created|deleted|SENDING|RECEIVED|monitored|dropped|terminated|Rejected"
@@ -977,7 +59,1144 @@
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=3.1.3+cda805f"
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "9fb63fb9-704a-4ce4-b1b7-951763b05103",
+      "data": {
+        "name": "CISCOFW713172",
+        "pattern": "Group = %{GREEDYDATA:group}, IP = %{IP:src_ip}, Automatic NAT Detection Status:\\s+Remote end\\s*%{DATA:is_remote_natted}\\s*behind a NAT device\\s+This\\s+end\\s*%{DATA:is_local_natted}\\s*behind a NAT device"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "1dadb02b-569e-4d7e-86e5-b2ccfdd9626a",
+      "data": {
+        "name": "CISCO_SESSIONTYPE",
+        "pattern": "AnyConnect-Parent|SSL|%{NOTSPACE}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "c09336e3-1453-4406-9629-6bd797ee30d8",
+      "data": {
+        "name": "CISCO_XLATE_TYPE",
+        "pattern": "static|dynamic"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "34eb9c45-2715-4b9a-a7a8-67d7419c3748",
+      "data": {
+        "name": "CISCOFW733103",
+        "pattern": "Threat-detection removes host %{IP:src_ip} from shun list"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "3aa28547-45e2-4be3-90f0-d89c133fb615",
+      "data": {
+        "name": "CISCOFW419001",
+        "pattern": "%{CISCO_ACTION:action} %{WORD:protocol} packet from %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}, reason: %{GREEDYDATA:reason}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "7c24dd69-be2e-4cb2-b738-d6c31e4278dd",
+      "data": {
+        "name": "CISCOFW113014",
+        "pattern": "AAA authentication server not accessible : server =  %{IP:server} : user = %{NOTSPACE:user}\t\n"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "941b500f-ba38-4f6c-831c-b0f0b885054a",
+      "data": {
+        "name": "CISCOFW302010",
+        "pattern": "%{INT:connection_count} in use, %{INT:connection_count_max} most used"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "0a530fb6-622a-47e7-8068-b3113fed1282",
+      "data": {
+        "name": "CISCOFW402117",
+        "pattern": "%{WORD:protocol}: Received a non-IPSec packet \\(protocol= %{WORD:orig_protocol}\\) from %{IP:src_ip} to %{IP:dst_ip}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "2896aa61-2ea9-4999-a905-d598a57a00bf",
+      "data": {
+        "name": "CISCOFW105004",
+        "pattern": "\\((?:Primary|Secondary)\\) Monitoring on [Ii]nterface %{GREEDYDATA:interface_name} normal"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "39639526-ad8c-4b40-a412-87982cc23f93",
+      "data": {
+        "name": "CISCOFW106021",
+        "pattern": "%{CISCO_ACTION:action} %{WORD:protocol} reverse path check from %{IP:src_ip} to %{IP:dst_ip} on interface %{GREEDYDATA:interface}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "f8db3085-f8be-4c4e-bb36-3b4f91df6310",
+      "data": {
+        "name": "CISCOTIMESTAMP",
+        "pattern": "%{MONTH} +%{MONTHDAY}(?: %{YEAR})? %{TIME}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "d14be9de-62b0-43df-b827-ba7360b887d0",
+      "data": {
+        "name": "CISCOFW106100",
+        "pattern": "access-list %{NOTSPACE:policy_id} %{CISCO_ACTION:action} %{WORD:protocol} %{DATA:src_interface}/%{IP:src_ip}\\(%{INT:src_port}\\)(\\(%{DATA:src_fwuser}\\))? -> %{DATA:dst_interface}/%{IP:dst_ip}\\(%{INT:dst_port}\\)(\\(%{DATA:src_fwuser}\\))? hit-cnt %{INT:hit_count} %{CISCO_INTERVAL:interval} \\[%{DATA:hashcode1}, %{DATA:hashcode2}\\]"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "34072602-c415-4a0a-b7e1-4a89e2a7fae0",
+      "data": {
+        "name": "CISCOFW104002",
+        "pattern": "\\((?:Primary|Secondary)\\) Switching to STANDBY - %{GREEDYDATA:switch_reason}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "b1bd77ec-386a-4050-a9a1-397a8b1edad0",
+      "data": {
+        "name": "CISCOFW401004",
+        "pattern": "%{CISCO_REASON:reason}: %{IP:src_ip} ==> %{IP:dst_ip} on interface %{GREEDYDATA:interface}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "6eac09d8-6bef-4910-a4db-5832a6745291",
+      "data": {
+        "name": "CISCOFW500004",
+        "pattern": "%{CISCO_REASON:reason} for protocol=%{WORD:protocol}, from %{IP:src_ip}/%{INT:src_port} to %{IP:dst_ip}/%{INT:dst_port}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "6ef84e05-774d-49c4-9b56-2daafd8d49ac",
+      "data": {
+        "name": "CISCOFW113008",
+        "pattern": "AAA transaction status ACCEPT : user = %{NOTSPACE:user}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "eed93fee-29a3-4ab5-b834-18a38a52b436",
+      "data": {
+        "name": "CISCOFW305011",
+        "pattern": "%{CISCO_ACTION:action} %{CISCO_XLATE_TYPE:xlate_type} %{WORD:protocol} translation from %{DATA:src_interface}:%{IP:src_ip}(/%{INT:src_port})?(\\(%{DATA:src_fwuser}\\))? to %{DATA:src_xlated_interface}:%{IP:src_xlated_ip}/%{DATA:src_xlated_port}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "aa495cb8-9819-4a8a-9ff7-f8a52d8a4639",
+      "data": {
+        "name": "CISCO_REASON",
+        "pattern": "Invalid password|AAA failure|Duplicate TCP SYN|TCP Reset\\-O|Failed to locate egress interface|Invalid transport field|No matching connection|DNS Response|DNS Query|(?:%{WORD}\\s*)*"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "6c1ed991-bf05-4174-ad38-6b2e3042026c",
+      "data": {
+        "name": "CISCOFW113009",
+        "pattern": "AAA retrieved default group policy \\(%{NOTSPACE:groupname}\\) for user = %{NOTSPACE:user}\n"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "49d058ab-90dc-4985-840d-9b6048230b6a",
+      "data": {
+        "name": "CISCOFW722037",
+        "pattern": "Group <%{WORD:groupname}> User <%{NOTSPACE:user}> IP <%{IP:src_ip}> SVC closing connection: Transport closing."
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "5390654f-56e1-4db2-864f-333237db7b36",
+      "data": {
+        "name": "CISCOFW106023",
+        "pattern": "%{CISCO_ACTION:action}( protocol)? %{WORD:protocol} src %{DATA:src_interface}:%{DATA:src_ip}(/%{INT:src_port})?(\\(%{DATA:src_fwuser}\\))? dst %{DATA:dst_interface}:%{DATA:dst_ip}(/%{INT:dst_port})?(\\(%{DATA:dst_fwuser}\\))?( \\(type %{INT:icmp_type}, code %{INT:icmp_code}\\))? by access-group \"?%{DATA:policy_id}\"? \\[%{DATA:hashcode1}, %{DATA:hashcode2}\\]"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "ec2da49c-2495-45f6-a10a-24e135951e6a",
+      "data": {
+        "name": "CISCOFW434002",
+        "pattern": "%{CISCO_REASON:reason} %{WORD:protocol} packet from %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}\n"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "da5971ed-c6bf-4f6c-8455-248ce1fc6ae7",
+      "data": {
+        "name": "CISCOFW105003",
+        "pattern": "\\((?:Primary|Secondary)\\) Monitoring on [Ii]nterface %{GREEDYDATA:interface_name} waiting"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "73e6685c-3572-4848-a1d9-44ae0291011d",
+      "data": {
+        "name": "CISCODURATION",
+        "pattern": "(?!<[0-9])%{HOUR}h:%{MINUTE}m(?::%{SECOND})(?![0-9])s"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "76107653-686f-4afa-bbde-f8f6e203c7c3",
+      "data": {
+        "name": "CISCOFW106014",
+        "pattern": "%{CISCO_ACTION:action} %{CISCO_DIRECTION:direction} %{WORD:protocol} src %{DATA:src_interface}:%{IP:src_ip}(\\(%{DATA:src_fwuser}\\))? dst %{DATA:dst_interface}:%{IP:dst_ip}(\\(%{DATA:dst_fwuser}\\))? \\(type %{INT:icmp_type}, code %{INT:icmp_code}\\)"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "1706082b-4d15-4fc4-95f4-71d11cd259be",
+      "data": {
+        "name": "CISCOFW105008",
+        "pattern": "\\((?:Primary|Secondary)\\) Testing [Ii]nterface %{GREEDYDATA:interface_name}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "a6725178-9db1-4104-bf6d-adc2002552c8",
+      "data": {
+        "name": "CISCOFW402119",
+        "pattern": "%{WORD:protocol}: Received an %{WORD:orig_protocol} packet \\(SPI= %{DATA:spi}, sequence number= %{DATA:seq_num}\\) from %{IP:src_ip} \\(user= %{DATA:user}\\) to %{IP:dst_ip} that failed anti-replay checking"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "599d99fd-5ee3-4ba5-b708-69c91c7331b6",
+      "data": {
+        "name": "CISCOTAG",
+        "pattern": "[A-Z0-9]+-%{INT}-(?:[A-Z0-9_]+)"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "d36d589f-6ab3-4b68-9f94-68eba80ed83f",
+      "data": {
+        "name": "CISCOFW733100",
+        "pattern": "\\[\\s*%{DATA:drop_type}\\s*\\] drop %{DATA:drop_rate_id} exceeded. Current burst rate is %{INT:drop_rate_current_burst} per second, max configured rate is %{INT:drop_rate_max_burst}; Current average rate is %{INT:drop_rate_current_avg} per second, max configured rate is %{INT:drop_rate_max_avg}; Cumulative total count is %{INT:drop_total_count}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "73b7c47a-780b-41e8-9d24-723af0a2fd3b",
+      "data": {
+        "name": "CISCOFW113039",
+        "pattern": "Group <%{NOTSPACE:groupname}> User <%{NOTSPACE:user}> IP <%{IP:src_ip}> AnyConnect parent session started."
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "38fd77d4-2820-453f-93a1-26bf4c7ba615",
+      "data": {
+        "name": "CISCOFW105009",
+        "pattern": "\\((?:Primary|Secondary)\\) Testing on [Ii]nterface %{GREEDYDATA:interface_name} (?:Passed|Failed)"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "c9406276-d164-4613-939a-9f2883723ec4",
+      "data": {
+        "name": "CISCOFW106015",
+        "pattern": "%{CISCO_ACTION:action} %{WORD:protocol} \\(%{DATA:policy_id}\\) from %{IP:src_ip}/%{INT:src_port} to %{IP:dst_ip}/%{INT:dst_port} flags %{DATA:tcp_flags} on interface %{GREEDYDATA:interface}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "69126727-5a70-4978-b769-46580de5c941",
+      "data": {
+        "name": "CISCOFW113005",
+        "pattern": "AAA user authentication %{CISCO_ACTION:action} : reason = %{CISCO_REASON:reason} : server = %{IP:server} : user = %{DATA:user} : user IP = %{IP:src_ip}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "c68d36a7-765d-4de1-bec7-dff4223f2578",
+      "data": {
+        "name": "CISCOFW304001",
+        "pattern": "%{IP:src_ip}(\\(%{DATA:src_fwuser}\\))? Accessed URL %{IP:dst_ip}:%{GREEDYDATA:dst_url}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "ed6d22c4-3218-4b56-9990-5b8adc89a2ef",
+      "data": {
+        "name": "CISCOFW302013_302014_302015_302016",
+        "pattern": "%{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection %{INT:connection_id} for %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port}( \\(%{IP:src_mapped_ip}/%{INT:src_mapped_port}\\))?(\\(%{DATA:src_fwuser}\\))? to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}( \\(%{IP:dst_mapped_ip}/%{INT:dst_mapped_port}\\))?(\\(%{DATA:dst_fwuser}\\))?( duration %{TIME:duration} bytes %{INT:bytes})?(?: %{CISCO_REASON:reason})?( \\(%{DATA:user}\\))?"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "111ce60c-8db0-4f88-957b-5452bda38f3a",
+      "data": {
+        "name": "CISCO_TAGGED_SYSLOG",
+        "pattern": "^<%{POSINT:syslog_pri}>%{CISCOTIMESTAMP:timestamp}( %{SYSLOGHOST:sysloghost})? ?: %%{CISCOTAG:ciscotag}:"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "7596a332-bca1-414c-886f-2a93c99e7f11",
+      "data": {
+        "name": "CISCOFW313001_313004_313008",
+        "pattern": "%{CISCO_ACTION:action} %{WORD:protocol} type=%{INT:icmp_type}, code=%{INT:icmp_code} from %{IP:src_ip} on interface %{DATA:interface}( to %{IP:dst_ip})?"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "0bb8ec54-8080-4efd-916d-165f6f69b8c2",
+      "data": {
+        "name": "CISCOFW113015",
+        "pattern": "AAA user authentication Rejected : reason = %{CISCO_REASON:reason} : local database : user = %{NOTSPACE:user} : user IP = %{IP:src_ip}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "2aaef3be-d40c-43ac-bf82-febe6879f157",
+      "data": {
+        "name": "CISCOFW710001_710002_710003_710005_710006",
+        "pattern": "%{WORD:protocol} (?:request|access) %{CISCO_ACTION:action} from %{IP:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "354f3dd1-3964-4db0-8710-5e7d2ee2104c",
+      "data": {
+        "name": "CISCOFW105005",
+        "pattern": "\\((?:Primary|Secondary)\\) Lost Failover communications with mate on [Ii]nterface %{GREEDYDATA:interface_name}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "19adf95e-fb7c-4873-b2f5-9cbcdc6c19f1",
+      "data": {
+        "name": "CISCO_INTERVAL",
+        "pattern": "first hit|%{INT}-second interval"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "1d99c69f-585d-4c15-81e1-1ed05e869f77",
+      "data": {
+        "name": "CISCOFW419002",
+        "pattern": "%{CISCO_REASON:reason} from %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IP:dst_ip}/%{INT:dst_port} with different initial sequence number"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "b7f01948-be23-4fc1-942e-9632f451c861",
+      "data": {
+        "name": "CISCOFW106100_2_3",
+        "pattern": "access-list %{NOTSPACE:policy_id} %{CISCO_ACTION:action} %{WORD:protocol} for user '%{DATA:src_fwuser}' %{DATA:src_interface}/%{IP:src_ip}\\(%{INT:src_port}\\) -> %{DATA:dst_interface}/%{IP:dst_ip}\\(%{INT:dst_port}\\) hit-cnt %{INT:hit_count} %{CISCO_INTERVAL:interval} \\[%{DATA:hashcode1}, %{DATA:hashcode2}\\]"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "50b5364c-369e-498f-ba56-e4b824d65073",
+      "data": {
+        "name": "CISCOFW106006_106007_106010",
+        "pattern": "%{CISCO_ACTION:action} %{CISCO_DIRECTION:direction} %{WORD:protocol} (?:from|src) %{IP:src_ip}/%{INT:src_port}(\\(%{DATA:src_fwuser}\\))? (?:to|dst) %{IP:dst_ip}/%{INT:dst_port}(\\(%{DATA:dst_fwuser}\\))? (?:on interface %{DATA:interface}|due to %{CISCO_REASON:reason})"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "11871504-afd5-46bd-9bc4-af1df53ba714",
+      "data": {
+        "name": "CISCOFW321001",
+        "pattern": "Resource '%{WORD:resource_name}' limit of %{POSINT:resource_limit} reached for system"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "8cac875e-4452-44d1-8f07-57e2d6e327b1",
+      "data": {
+        "name": "CISCOFW733102",
+        "pattern": "Threat-detection adds host %{IP:src_ip} to shun list"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "71922599-9841-409b-ac3e-349e363f7d13",
+      "data": {
+        "name": "CISCOFW104003",
+        "pattern": "\\((?:Primary|Secondary)\\) Switching to FAILED\\."
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "40a6dc95-72e2-400a-8d6f-c9c4102539df",
+      "data": {
+        "name": "CISCOFW106001",
+        "pattern": "%{CISCO_DIRECTION:direction} %{WORD:protocol} connection %{CISCO_ACTION:action} from %{IP:src_ip}/%{INT:src_port} to %{IP:dst_ip}/%{INT:dst_port} flags %{GREEDYDATA:tcp_flags} on interface %{GREEDYDATA:interface}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "33c2337d-1a8c-4fe8-bfee-3d36c001e0b2",
+      "data": {
+        "name": "CISCOFW113004",
+        "pattern": "AAA user %{WORD:aaa_type} Successful : server = \\s*%{IP:server} : user = %{NOTSPACE:user}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "77434bdd-868e-416e-a2d2-afb953f4c8ba",
+      "data": {
+        "name": "CISCOFW113003",
+        "pattern": "AAA group policy for user %{NOTSPACE:user} is being set to %{NOTSPACE:groupname}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "fded15c8-92ce-4827-b891-6c373924e96e",
+      "data": {
+        "name": "CISCOFW507003",
+        "pattern": "%{WORD:protocol} flow from %{DATA:src_interface}:%{IPORHOST:src_ip}/%{INT:src_port} to %{DATA:dst_interface}:%{IPORHOST:dst_ip}/%{INT:dst_port} %{CISCO_ACTION:action} by inspection engine, reason - %{DATA:reason}?\\."
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "90bf5d09-b791-43fa-a6a8-fd24870cecc3",
+      "data": {
+        "name": "CISCOFW113019",
+        "pattern": "Group = %{NOTSPACE:groupname}, Username = %{NOTSPACE:user}, IP = %{IP:src_ip}, Session disconnected. Session Type: %{CISCO_SESSIONTYPE:session_type}, Duration: %{CISCODURATION:duration}, Bytes xmt: %{INT:bytes_xmt}, Bytes rcv: %{INT:bytes_rcv}, Reason: %{CISCO_REASON:reason}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "e6ed797b-ea41-4f83-b454-4784b9f2e3e4",
+      "data": {
+        "name": "CISCOFW602303_602304",
+        "pattern": "%{WORD:protocol}: An %{CISCO_DIRECTION:direction} %{GREEDYDATA:tunnel_type} SA \\(SPI= %{DATA:spi}\\) between %{IP:src_ip} and %{IP:dst_ip} \\(user= %{DATA:user}\\) has been %{CISCO_ACTION:action}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "56e24311-2a19-480c-92e7-619b6a023b10",
+      "data": {
+        "name": "CISCOFW110002",
+        "pattern": "%{CISCO_REASON:reason} for %{WORD:protocol} from %{DATA:src_interface}:%{IP:src_ip}/%{INT:src_port} to %{IP:dst_ip}/%{INT:dst_port}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "c0e73b78-68c8-4cb6-a08c-c8654cd89777",
+      "data": {
+        "name": "CISCO_AAASTATUS",
+        "pattern": "ACTIVE|FAILED"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "cba53bb0-629a-483e-bb94-5e3ec240e6bc",
+      "data": {
+        "name": "CISCO_DIRECTION",
+        "pattern": "Inbound|inbound|Outbound|outbound"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "ed132966-1abb-4d21-9c1a-f1177daea9b7",
+      "data": {
+        "name": "CISCOFW302020_302021",
+        "pattern": "%{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection for faddr %{IP:dst_ip}/%{INT:icmp_seq_num}(?:\\(%{DATA:fwuser}\\))? gaddr %{IP:src_xlated_ip}/%{INT:icmp_code_xlated} laddr %{IP:src_ip}/%{INT:icmp_code}( \\(%{DATA:user}\\))?"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "5a8723e8-3c42-453c-93c8-3f50f14c5fd9",
+      "data": {
+        "name": "CISCOFW104004",
+        "pattern": "\\((?:Primary|Secondary)\\) Switching to OK\\."
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "7c693ac4-981f-45cd-92d7-e096697c92a8",
+      "data": {
+        "name": "CISCOFW313005",
+        "pattern": "%{CISCO_REASON:reason} for %{WORD:protocol} error message: %{WORD:err_protocol} src %{DATA:err_src_interface}:%{IP:err_src_ip}(\\(%{DATA:err_src_fwuser}\\))? dst %{DATA:err_dst_interface}:%{IP:err_dst_ip}(\\(%{DATA:err_dst_fwuser}\\))? \\(type %{INT:err_icmp_type}, code %{INT:err_icmp_code}\\) on %{DATA:interface} interface\\.  Original IP payload: %{WORD:protocol} src %{IP:orig_src_ip}/%{INT:orig_src_port}(\\(%{DATA:orig_src_fwuser}\\))? dst %{IP:orig_dst_ip}/%{INT:orig_dst_port}(\\(%{DATA:orig_dst_fwuser}\\))?"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "grok_pattern",
+        "version": "1"
+      },
+      "id": "0f17185e-f599-4204-80b2-f26f920ab4d4",
+      "data": {
+        "name": "CISCOFW104001",
+        "pattern": "\\((?:Primary|Secondary)\\) Switching to ACTIVE - %{GREEDYDATA:switch_reason}"
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline",
+        "version": "1"
+      },
+      "id": "a21dd5c9-5654-428d-9823-007886e7161b",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Cisco ASA Pipeline"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Pipeline for the Cisco ASA"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "pipeline \"Cisco ASA Pipeline\"\nstage 0 match either\nrule \"ASA syslog/UDP raw log\"\nend"
+        },
+        "connected_streams": []
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "588222a3-69d2-434a-b320-b1f265bca0d1",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "ASA syslog/UDP raw log"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Cisco ASA Log rules. "
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"ASA syslog/UDP raw log\"\r\nwhen\r\n    has_field(\"message\")\r\nthen\r\n    let raw_log = to_string($message.message);\r\n    let header = grok(pattern:\"{CISCOTAG:ciscotag}: (%{CISCOFW104001}|%{CISCOFW104002}|%{CISCOFW104003}|%{CISCOFW104004}|%{CISCOFW105003}|%{CISCOFW105004}|%{CISCOFW105005}|%{CISCOFW105008}|%{CISCOFW105009}|%{CISCOFW106001}|%{CISCOFW106023}|%{CISCOFW113003}|%{CISCOFW113004}|%{CISCOFW113005}|%{CISCOFW113008}|%{CISCOFW113009}|%{CISCOFW113014}|%{CISCOFW113015}|%{CISCOFW113019}|%{CISCOFW113022_3}|%{CISCOFW113039}|%{CISCOFW313005}|%{CISCOFW401004}|%{CISCOFW419001}|%{CISCOFW419002}|%{CISCOFW434002}|%{CISCOFW500004}|%{CISCOFW507003}|%{CISCOFW710001_710002_710003_710005_710006}|%{CISCOFW722037}|%{CISCOFW733100}|%{CISCOFW733100}|%{CISCOFW733102}|%{CISCOFW733103})|(%{CISCOTAG:ciscotag}: %{GREEDYDATA:cisco_message})\", value: raw_log,only_named_captures: true);\r\n    set_fields(header);\r\nend\r\n\r\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.2.4+a407287"
         }
       ]
     }
