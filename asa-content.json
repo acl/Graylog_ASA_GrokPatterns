@@ -18,7 +18,7 @@
       "id": "26e04a5c-4eb1-45d5-8b18-6676ce4cd1d0",
       "data": {
         "name": "CISCOFW113022_3",
-        "pattern": "AAA Marking RADIUS server %{IP:server} in aaa-server group %{NOTSPACE:server_group} as %{CISCO_AAASTATUS:server_group_status}"
+        "pattern": "AAA Marking (LDAP|RADIUS) server %{IP:server} in aaa-server group %{NOTSPACE:server_group} as %{CISCO_AAASTATUS:server_group_status}"
       },
       "constraints": [
         {
@@ -162,7 +162,7 @@
       "id": "7c24dd69-be2e-4cb2-b738-d6c31e4278dd",
       "data": {
         "name": "CISCOFW113014",
-        "pattern": "AAA authentication server not accessible : server =  %{IP:server} : user = %{NOTSPACE:user}\t\n"
+        "pattern": "AAA authentication server not accessible : server = %{SPACE}? %{IP:server} : user = %{GREEDYDATA:user}\n"
       },
       "constraints": [
         {
@@ -393,15 +393,15 @@
         "name": "grok_pattern",
         "version": "1"
       },
-      "id": "6c1ed991-bf05-4174-ad38-6b2e3042026c",
+      "id": "406bc21f-dd04-400c-9c26-bd5d87a8d7c7",
       "data": {
-        "name": "CISCOFW113009",
-        "pattern": "AAA retrieved default group policy \\(%{NOTSPACE:groupname}\\) for user = %{NOTSPACE:user}\n"
+        "name": "CISCOFW113009_113011",
+        "pattern": "AAA retrieved (?:default|user specific) group policy \\(%{NOTSPACE:groupname}\\) for user = %{NOTSPACE:user}\t\n\n"
       },
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=3.2.4+a407287"
+          "version": ">=3.3.2+ade4779"
         }
       ]
     },
@@ -1190,7 +1190,7 @@
         },
         "source": {
           "@type": "string",
-          "@value": "rule \"ASA syslog/UDP raw log\"\r\nwhen\r\n    has_field(\"message\")\r\nthen\r\n    let raw_log = to_string($message.message);\r\n    let header = grok(pattern:\"{CISCOTAG:ciscotag}: (%{CISCOFW104001}|%{CISCOFW104002}|%{CISCOFW104003}|%{CISCOFW104004}|%{CISCOFW105003}|%{CISCOFW105004}|%{CISCOFW105005}|%{CISCOFW105008}|%{CISCOFW105009}|%{CISCOFW106001}|%{CISCOFW106023}|%{CISCOFW113003}|%{CISCOFW113004}|%{CISCOFW113005}|%{CISCOFW113008}|%{CISCOFW113009}|%{CISCOFW113014}|%{CISCOFW113015}|%{CISCOFW113019}|%{CISCOFW113022_3}|%{CISCOFW113039}|%{CISCOFW313005}|%{CISCOFW401004}|%{CISCOFW419001}|%{CISCOFW419002}|%{CISCOFW434002}|%{CISCOFW500004}|%{CISCOFW507003}|%{CISCOFW710001_710002_710003_710005_710006}|%{CISCOFW722037}|%{CISCOFW733100}|%{CISCOFW733100}|%{CISCOFW733102}|%{CISCOFW733103})|(%{CISCOTAG:ciscotag}: %{GREEDYDATA:cisco_message})\", value: raw_log,only_named_captures: true);\r\n    set_fields(header);\r\nend\r\n\r\n"
+          "@value": "rule \"ASA syslog/UDP raw log\"\nwhen\n    has_field(\"message\")\nthen\n    let raw_log = to_string($message.message);\n    let header = grok(pattern:\"%{CISCOTAG:ciscotag}: (%{CISCOFW104001}|%{CISCOFW104002}|%{CISCOFW104003}|%{CISCOFW104004}|%{CISCOFW105003}|%{CISCOFW105004}|%{CISCOFW105005}|%{CISCOFW105008}|%{CISCOFW106100}|%{CISCOFW106100_2_3}|%{CISCOFW113009_113011}|%{CISCOFW106001}|%{CISCOFW106023}|%{CISCOFW113003}|%{CISCOFW113004}|%{CISCOFW113005}|%{CISCOFW113008}|%{CISCOFW113009}|%{CISCOFW113014}|%{CISCOFW113015}|%{CISCOFW113019}|%{CISCOFW113022_3}|%{CISCOFW113039}|%{CISCOFW313005}|%{CISCOFW401004}|%{CISCOFW419001}|%{CISCOFW419002}|%{CISCOFW434002}|%{CISCOFW500004}|%{CISCOFW507003}|%{CISCOFW710001_710002_710003_710005_710006}|%{CISCOFW722037}|%{CISCOFW733100}|%{CISCOFW733100}|%{CISCOFW733102}|%{CISCOFW733103})|(%{CISCOTAG:ciscotag}: %{GREEDYDATA:cisco_message})\", value: raw_log,only_named_captures: true);\n    set_fields(header);\nend\n\n"
         }
       },
       "constraints": [
