@@ -1,7 +1,7 @@
 {
   "v": "1",
   "id": "324c879c-c1bf-4326-ac52-c5ff66caef5b",
-  "rev": 2,
+  "rev": 2
   "name": "Cisco ASA Content Pack",
   "summary": "Groks for Cisco ASA FW logs",
   "description": "Yet another Cisco ASA content pack",
@@ -253,24 +253,6 @@
       "data": {
         "name": "CISCOTIMESTAMP",
         "pattern": "%{MONTH} +%{MONTHDAY}(?: %{YEAR})? %{TIME}"
-      },
-      "constraints": [
-        {
-          "type": "server-version",
-          "version": ">=3.2.4+a407287"
-        }
-      ]
-    },
-    {
-      "v": "1",
-      "type": {
-        "name": "grok_pattern",
-        "version": "1"
-      },
-      "id": "d14be9de-62b0-43df-b827-ba7360b887d0",
-      "data": {
-        "name": "CISCOFW106100",
-        "pattern": "access-list %{NOTSPACE:policy_id} %{CISCO_ACTION:action} %{WORD:protocol} %{DATA:src_interface}/%{IP:src_ip}\\(%{INT:src_port}\\)(\\(%{DATA:src_fwuser}\\))? -> %{DATA:dst_interface}/%{IP:dst_ip}\\(%{INT:dst_port}\\)(\\(%{DATA:src_fwuser}\\))? hit-cnt %{INT:hit_count} %{CISCO_INTERVAL:interval} \\[%{DATA:hashcode1}, %{DATA:hashcode2}\\]"
       },
       "constraints": [
         {
@@ -1149,7 +1131,7 @@
         "name": "pipeline",
         "version": "1"
       },
-      "id": "a21dd5c9-5654-428d-9823-007886e7161b",
+      "id": "3525e473-6eb5-4a3e-9c7c-f54f795ac95b",
       "data": {
         "title": {
           "@type": "string",
@@ -1161,14 +1143,23 @@
         },
         "source": {
           "@type": "string",
-          "@value": "pipeline \"Cisco ASA Pipeline\"\nstage 0 match either\nrule \"ASA syslog/UDP raw log\"\nend"
+          "@value": "pipeline \"Cisco ASA Pipeline\"\nstage 1 match either\nrule \"ASA syslog/UDP raw log\"\nstage 0 match either\nrule \"ASA syslog/UDP raw header\"\nend"
         },
-        "connected_streams": []
+        "connected_streams": [
+          {
+            "@type": "string",
+            "@value": "7d711871-a8b4-430d-8ccb-708e90dc94dd"
+          },
+          {
+            "@type": "string",
+            "@value": "68aa5067-da27-49f7-9305-d1aafda74a27"
+          }
+        ]
       },
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=3.2.4+a407287"
+          "version": ">=3.3.2+ade4779"
         }
       ]
     },
@@ -1178,7 +1169,35 @@
         "name": "pipeline_rule",
         "version": "1"
       },
-      "id": "588222a3-69d2-434a-b320-b1f265bca0d1",
+      "id": "1eadcc26-1e38-41b1-b441-35783d46af5c",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "ASA syslog/UDP raw header"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Cisco ASA Log header\n"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"ASA syslog/UDP raw header\"\nwhen\n    has_field(\"message\")\nthen\n    let raw_log = to_string($message.message);\n    let header = grok(pattern:\"%{CISCOTAG:ciscotag}: %{GREEDYDATA:cisco_message}\", value: raw_log,only_named_captures: true);\n    set_fields(header);\nend\n"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.2+ade4779"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "9f097617-b2e4-41f9-be3d-902f2324a3ce",
       "data": {
         "title": {
           "@type": "string",
@@ -1190,13 +1209,13 @@
         },
         "source": {
           "@type": "string",
-          "@value": "rule \"ASA syslog/UDP raw log\"\nwhen\n    has_field(\"message\")\nthen\n    let raw_log = to_string($message.message);\n    let header = grok(pattern:\"%{CISCOTAG:ciscotag}: (%{CISCOFW104001}|%{CISCOFW104002}|%{CISCOFW104003}|%{CISCOFW104004}|%{CISCOFW105003}|%{CISCOFW105004}|%{CISCOFW105005}|%{CISCOFW105008}|%{CISCOFW106100}|%{CISCOFW106100_2_3}|%{CISCOFW106001}|%{CISCOFW106023}|%{CISCOFW113003}|%{CISCOFW113004}|%{CISCOFW113005}|%{CISCOFW113008}|%{CISCOFW113009_113011}|%{CISCOFW113014}|%{CISCOFW113015}|%{CISCOFW113019}|%{CISCOFW113022_3}|%{CISCOFW113039}|%{CISCOFW313005}|%{CISCOFW401004}|%{CISCOFW419001}|%{CISCOFW419002}|%{CISCOFW434002}|%{CISCOFW500004}|%{CISCOFW507003}|%{CISCOFW710001_710002_710003_710005_710006}|%{CISCOFW722037}|%{CISCOFW733100}|%{CISCOFW733100}|%{CISCOFW733102}|%{CISCOFW733103})|(%{CISCOTAG:ciscotag}: %{GREEDYDATA:cisco_message})\", value: raw_log,only_named_captures: true);\n    set_fields(header);\nend\n\n"
+          "@value": "rule \"ASA syslog/UDP raw log\"\nwhen\n    has_field(\"cisco_message\")\nthen\n    let raw_log = to_string($message.cisco_message);\n    let cisco_asa = grok(pattern:\"(%{CISCOFW104001}|%{CISCOFW104002}|%{CISCOFW104003}|%{CISCOFW104004}|%{CISCOFW105003}|%{CISCOFW105004}|%{CISCOFW105005}|%{CISCOFW105008}|%{CISCOFW106100_2_3}|%{CISCOFW106001}|%{CISCOFW106023}|%{CISCOFW113003}|%{CISCOFW113004}|%{CISCOFW113005}|%{CISCOFW113008}|%{CISCOFW113009_113011}|%{CISCOFW113014}|%{CISCOFW113015}|%{CISCOFW113019}|%{CISCOFW113022_3}|%{CISCOFW113039}|%{CISCOFW313005}|%{CISCOFW401004}|%{CISCOFW419001}|%{CISCOFW419002}|%{CISCOFW434002}|%{CISCOFW500004}|%{CISCOFW507003}|%{CISCOFW710001_710002_710003_710005_710006}|%{CISCOFW722037}|%{CISCOFW733100}|%{CISCOFW733100}|%{CISCOFW733102}|%{CISCOFW733103})\", value:raw_log,only_named_captures: true);\n    set_fields(cisco_asa);\n    remove_field(\"cisco_message\");\nend"
         }
       },
       "constraints": [
         {
           "type": "server-version",
-          "version": ">=3.2.4+a407287"
+          "version": ">=3.3.2+ade4779"
         }
       ]
     }
