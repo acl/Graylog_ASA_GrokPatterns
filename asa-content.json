@@ -1,7 +1,7 @@
 {
   "v": "1",
   "id": "324c879c-c1bf-4326-ac52-c5ff66caef5b",
-  "rev": 2
+  "rev": 2,
   "name": "Cisco ASA Content Pack",
   "summary": "Groks for Cisco ASA FW logs",
   "description": "Yet another Cisco ASA content pack",
