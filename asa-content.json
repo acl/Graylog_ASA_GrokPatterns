@@ -1146,14 +1146,6 @@
           "@value": "pipeline \"Cisco ASA Pipeline\"\nstage 1 match either\nrule \"ASA syslog/UDP raw log\"\nstage 0 match either\nrule \"ASA syslog/UDP raw header\"\nend"
         },
         "connected_streams": [
-          {
-            "@type": "string",
-            "@value": "7d711871-a8b4-430d-8ccb-708e90dc94dd"
-          },
-          {
-            "@type": "string",
-            "@value": "68aa5067-da27-49f7-9305-d1aafda74a27"
-          }
         ]
       },
       "constraints": [
