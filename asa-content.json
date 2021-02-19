@@ -1,7 +1,7 @@
 {
   "v": "1",
   "id": "324c879c-c1bf-4326-ac52-c5ff66caef5b",
-  "rev": 2,
+  "rev": 3,
   "name": "Cisco ASA Content Pack",
   "summary": "Groks for Cisco ASA FW logs",
   "description": "Yet another Cisco ASA content pack",
@@ -1062,7 +1062,7 @@
       "id": "ed132966-1abb-4d21-9c1a-f1177daea9b7",
       "data": {
         "name": "CISCOFW302020_302021",
-        "pattern": "%{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection for faddr %{IP:dst_ip}/%{INT:icmp_seq_num}(?:\\(%{DATA:fwuser}\\))? gaddr %{IP:src_xlated_ip}/%{INT:icmp_code_xlated} laddr %{IP:src_ip}/%{INT:icmp_code}( \\(%{DATA:user}\\))?"
+        "pattern": "%{CISCO_ACTION:action}(?: %{CISCO_DIRECTION:direction})? %{WORD:protocol} connection for faddr %{IP:src_ip}/%{INT:icmp_seq_num}(?:\\(%{DATA:fwuser}\\))? gaddr %{IP:dst_ip}/%{INT:icmp_code_xlated} laddr %{IP:xlated_dst_ip}/%{INT:icmp_code}( \\(%{DATA:user}\\))?"
       },
       "constraints": [
         {
@@ -1143,7 +1143,7 @@
         },
         "source": {
           "@type": "string",
-          "@value": "pipeline \"Cisco ASA Pipeline\"\nstage 1 match either\nrule \"ASA syslog/UDP raw log\"\nstage 0 match either\nrule \"ASA syslog/UDP raw header\"\nend"
+          "@value": "pipeline \"Cisco ASA Pipeline\"\nstage 0 match either\nrule \"ASA syslog/UDP raw header\"\nstage 1 match either\nrule \"ASA syslog/UDP raw log\"\nstage 2 match either\nrule \"ASA authentication src_ip geoip lookup\"\nrule \"Threat Intelligence Lookups: src_ip\"\nend"
         },
         "connected_streams": [
         ]
@@ -1161,7 +1161,35 @@
         "name": "pipeline_rule",
         "version": "1"
       },
-      "id": "1eadcc26-1e38-41b1-b441-35783d46af5c",
+      "id": "ac5b15b2-6f3a-44ff-a16c-9f08743a7392",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "ASA syslog/UDP raw log"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Cisco ASA Log rules. "
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"ASA syslog/UDP raw log\"\nwhen\n    has_field(\"cisco_message\")\nthen\n    let raw_log = to_string($message.cisco_message);\n//    let cisco_asa = grok(pattern:\"(%{CISCOFW104001}|%{CISCOFW104002}|%{CISCOFW104003}|%{CISCOFW104004}|%{CISCOFW105003}|%{CISCOFW105004}|%{CISCOFW105005}|%{CISCOFW105008}|%{CISCOFW106100_2_3}|%{CISCOFW106001}|%{CISCOFW106015}|%{CISCOFW106023}|%{CISCOFW113003}|%{CISCOFW113004}|%{CISCOFW113005}|%{CISCOFW113008}|%{CISCOFW113009_113011}|%{CISCOFW113014}|%{CISCOFW113015}|%{CISCOFW113019}|%{CISCOFW113022_3}|%{CISCOFW113039}|%{CISCOFW313005}|%{CISCOFW401004}|%{CISCOFW419001}|%{CISCOFW419002}|%{CISCOFW434002}|%{CISCOFW500004}|%{CISCOFW507003}|%{CISCOFW710001_710002_710003_710005_710006}|%{CISCOFW722037}|%{CISCOFW733100}|%{CISCOFW733100}|%{CISCOFW733102}|%{CISCOFW733103})\", value:raw_log,only_named_captures: true);\n    let cisco_asa = grok(pattern:\"(%{CISCOFW104001}|%{CISCOFW104002}|%{CISCOFW104003}|%{CISCOFW104004}|%{CISCOFW105003}|%{CISCOFW105004}|%{CISCOFW105005}|%{CISCOFW105008}|%{CISCOFW106100_2_3}|%{CISCOFW106001}|%{CISCOFW106015}|%{CISCOFW106023}|%{CISCOFW113003}|%{CISCOFW113004}|%{CISCOFW113005}|%{CISCOFW113008}|%{CISCOFW113009_113011}|%{CISCOFW113014}|%{CISCOFW113015}|%{CISCOFW113019}|%{CISCOFW113022_3}|%{CISCOFW113039}|%{CISCOFW302013_302014_302015_302016}|%{CISCOFW302020_302021}|%{CISCOFW313005}|%{CISCOFW401004}|%{CISCOFW419001}|%{CISCOFW419002}|%{CISCOFW434002}|%{CISCOFW500004}|%{CISCOFW507003}|%{CISCOFW710001_710002_710003_710005_710006}|%{CISCOFW722037}|%{CISCOFW733100}|%{CISCOFW733100}|%{CISCOFW733102}|%{CISCOFW733103})\", value:raw_log,only_named_captures: true);\n    set_fields(cisco_asa);\n    remove_field(\"cisco_message\");\nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.8+e223f85"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "8dcde44a-e613-47e3-9c7f-1f70e69c46f8",
       "data": {
         "title": {
           "@type": "string",
@@ -1189,19 +1217,47 @@
         "name": "pipeline_rule",
         "version": "1"
       },
-      "id": "9f097617-b2e4-41f9-be3d-902f2324a3ce",
+      "id": "813f115e-64c9-418d-b910-902157ddda3f",
       "data": {
         "title": {
           "@type": "string",
-          "@value": "ASA syslog/UDP raw log"
+          "@value": "ASA authentication src_ip geoip lookup"
         },
         "description": {
           "@type": "string",
-          "@value": "Cisco ASA Log rules. "
+          "@value": "Authentication Attempt to the firewall"
         },
         "source": {
           "@type": "string",
-          "@value": "rule \"ASA syslog/UDP raw log\"\nwhen\n    has_field(\"cisco_message\")\nthen\n    let raw_log = to_string($message.cisco_message);\n    let cisco_asa = grok(pattern:\"(%{CISCOFW104001}|%{CISCOFW104002}|%{CISCOFW104003}|%{CISCOFW104004}|%{CISCOFW105003}|%{CISCOFW105004}|%{CISCOFW105005}|%{CISCOFW105008}|%{CISCOFW106100_2_3}|%{CISCOFW106001}|%{CISCOFW106023}|%{CISCOFW113003}|%{CISCOFW113004}|%{CISCOFW113005}|%{CISCOFW113008}|%{CISCOFW113009_113011}|%{CISCOFW113014}|%{CISCOFW113015}|%{CISCOFW113019}|%{CISCOFW113022_3}|%{CISCOFW113039}|%{CISCOFW313005}|%{CISCOFW401004}|%{CISCOFW419001}|%{CISCOFW419002}|%{CISCOFW434002}|%{CISCOFW500004}|%{CISCOFW507003}|%{CISCOFW710001_710002_710003_710005_710006}|%{CISCOFW722037}|%{CISCOFW733100}|%{CISCOFW733100}|%{CISCOFW733102}|%{CISCOFW733103})\", value:raw_log,only_named_captures: true);\n    set_fields(cisco_asa);\n    remove_field(\"cisco_message\");\nend"
+          "@value": "rule \"ASA authentication src_ip geoip lookup\"\nwhen\n has_field(\"src_ip\") AND (regex(\"ASA-6-113005|ASA-6-113015\", to_string($message.ciscotag)).matches == true)\nthen\n let geo = lookup(\"geoip-lookup\", to_string($message.src_ip));\n  set_field(\"src_ip_geolocation\", geo[\"coordinates\"]);\n  set_field(\"src_ip_geo_country_code\", geo[\"country\"].iso_code);\n  set_field(\"src_ip_geo_country_name\", geo[\"country\"].names.en);\n  set_field(\"src_ip_geo_city_name\", geo[\"city\"].names.en); \nend"
+        }
+      },
+      "constraints": [
+        {
+          "type": "server-version",
+          "version": ">=3.3.2+ade4779"
+        }
+      ]
+    },
+    {
+      "v": "1",
+      "type": {
+        "name": "pipeline_rule",
+        "version": "1"
+      },
+      "id": "58a3dddf-8943-407f-81cd-fa60dc9c7eba",
+      "data": {
+        "title": {
+          "@type": "string",
+          "@value": "Threat Intelligence Lookups: src_ip"
+        },
+        "description": {
+          "@type": "string",
+          "@value": "Threat Intelligence Lookups. By src_ip"
+        },
+        "source": {
+          "@type": "string",
+          "@value": "rule \"Threat Intelligence Lookups: src_ip\"\nwhen\n has_field(\"src_ip\") AND (regex(\"ASA-6-113005|ASA-6-113015\", to_string($message.ciscotag)).matches == true)\nthen\n set_fields(threat_intel_lookup_ip(to_string($message.src_ip), \"src_ip\"));\nEnd"
         }
       },
       "constraints": [
