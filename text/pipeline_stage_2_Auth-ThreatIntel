@@ -1,0 +1,7 @@
+// Description: Threat Intelligence Lookups for authentications. By src_ip
+rule "Threat Intelligence Lookups: src_ip"
+when
+ has_field("src_ip") AND (regex("ASA-6-113005|ASA-6-113015", to_string($message.ciscotag)).matches == true)
+then
+ set_fields(threat_intel_lookup_ip(to_string($message.src_ip), "src_ip"));
+End
