@@ -1,0 +1,12 @@
+// Description : Get Gep Location of Authentication Attempt to the firewall
+
+rule "ASA authentication src_ip geoip lookup"
+when
+ has_field("src_ip") AND (regex("ASA-6-113005|ASA-6-113015", to_string($message.ciscotag)).matches == true)
+then
+ let geo = lookup("geoip-lookup", to_string($message.src_ip));
+  set_field("src_ip_geolocation", geo["coordinates"]);
+  set_field("src_ip_geo_country_code", geo["country"].iso_code);
+  set_field("src_ip_geo_country_name", geo["country"].names.en);
+  set_field("src_ip_geo_city_name", geo["city"].names.en); 
+end
