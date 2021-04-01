@@ -1,0 +1,9 @@
+// Description: Cisco ASA Log header
+rule "ASA syslog/UDP raw header"
+when
+    has_field("message")
+then
+    let raw_log = to_string($message.message);
+    let header = grok(pattern:"%{CISCOTAG:ciscotag}: %{GREEDYDATA:cisco_message}", value: raw_log,only_named_captures: true);
+    set_fields(header);
+end
